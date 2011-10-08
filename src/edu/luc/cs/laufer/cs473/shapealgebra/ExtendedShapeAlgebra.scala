@@ -8,21 +8,27 @@ import java.awt.Point
 
 trait ExtendedShapeAlgebra[R] extends ShapeAlgebra[R] {
 
-  def visitStroke(r:R, s:Stroke):R
-  def visitFill(f:Shape):R
-  def vivitOutline(s:Shape):R
+  def visitStroke(r: R, s: Stroke):R
+  def visitFill(r: R, f: Shape):R
+  def visitOutline(s: Shape):R
   def visitPolygon(p: Polygon): R
-  def visitRotate(int:Int,s:Shape):R
-  def visitCircle(c:Circle): R
-  
-  // TODO: add missing visit methods similarly to Location
+  def visitPoint(p: Point): R
+  def visitRotate(int: Int,s: Shape):R
+  def visitCircle(c: Circle): R
 
   /**
    * The extended catamorphism for shapes.
    */
   override def fold(s: Shape): R = s match {
-    case p: Polygon => visitPolygon(p)
-    // TODO: add missing cases similarly to Location
+   	
+    case stroke: Stroke => visitStroke(fold(stroke.shape),stroke)
+    case point: Point => visitPoint(point)
+    case fill: Fill => visitFill(fold(fill.shape),fill)
+    case outline: Outline=>visitOutline(outline)
+    case polygon: Polygon => visitPolygon(polygon)
+    case rotate: Rotate=>visitRotate(rotate.theta,rotate)
+    case circle: Circle=>visitCircle(circle)
+    
     case _ => super.fold(s)
   }
 }

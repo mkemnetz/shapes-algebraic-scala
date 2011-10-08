@@ -1,7 +1,6 @@
 package edu.luc.cs.laufer.cs473.shapealgebra
 
 import java.awt.{Color,Graphics2D}
-
 object TestFixturesExtended {
 
   val simpleStroke = Stroke(Color.ORANGE, Circle(50))
