@@ -6,7 +6,7 @@ class Draw {
   def draw(g: Graphics2D)(s: Shape): Unit = s match {
     case Ellipse(hw, hh) => g.drawArc(-hw, -hh, 2 * hw, 2 * hh, 0, 360)
     case Rectangle(w, h) => g.drawRect(0, 0, w, h)
-    // TODO: Location and Group
+    case Location(x: Int, y: Int, shape: Shape) => 
   }
 }
 
