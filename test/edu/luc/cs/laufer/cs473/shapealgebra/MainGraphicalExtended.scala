@@ -9,7 +9,7 @@
 //  def main(args : Array[String]) { }
 //
 //  val s = extendedGroupRotate
-////  val s = Rotate(190, Location(100, 100, Ellipse(200, 100)))
+//  //val s = Rotate(190, Location(100, 100, Ellipse(200, 100)))
 //  val b @ Location(x, y, Rectangle(w, h)) = ExtendedBoundingBox(s)
 //  println("shape = " + s)
 //  println("bounding box = " + b)
