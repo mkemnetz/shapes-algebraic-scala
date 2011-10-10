@@ -11,7 +11,7 @@ class Draw {
       draw(g)(shape)
     }
     case Group(shapes @ _*) => {
-      shapes.map(z => draw(g)(z))
+      shapes foreach(draw(g)(_))
     }
   }
 }
