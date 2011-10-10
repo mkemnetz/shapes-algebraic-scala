@@ -32,7 +32,7 @@ object ExtendedShapeDepth extends ExtendedShapeAlgebra[Int] {
 class ExtendedBoundingBox extends BoundingBox with ExtendedShapeAlgebra[Location] {
   override def visitRectangle(r:Rectangle) = BoundingBox.visitRectangle(r)
   override def visitEllipse(e: Ellipse) = BoundingBox.visitEllipse(e)
-  override def visitLocation(r:Location, l:Location) = BoundingBox.visitLocation(r, l)
+  override def visitLocation(r:Location, l:Location) =  BoundingBox.visitLocation(r, l)
   override def visitGroup(rs:Seq[Location],g:Group) = BoundingBox.visitGroup(rs, g)
   def visitStroke(r: Location, shape: Stroke) = r
   def visitFill(r: Location,f:Fill) = r
@@ -51,22 +51,14 @@ class ExtendedBoundingBox extends BoundingBox with ExtendedShapeAlgebra[Location
   def visitPoint(p:Point) = Location(0,0,p)
   def visitRotate(r: Location, s:Rotate) = {
     val m = ExtendedBoundingBox(s.shape)
-//    val llr = math.hypot(m.x-(m.shape.asInstanceOf[Rectangle].width/2), m.y-(m.shape.asInstanceOf[Rectangle].height/2))
-//    val lltheta = math.atan2(m.x-(m.shape.asInstanceOf[Rectangle].width/2),m.y-(m.shape.asInstanceOf[Rectangle].height/2)) + math.toRadians(s.theta)
-//    val ulr = math.hypot(m.x-(m.shape.asInstanceOf[Rectangle].width/2), m.y+(m.shape.asInstanceOf[Rectangle].height/2))
-//    val ultheta = math.atan2(m.x-(m.shape.asInstanceOf[Rectangle].width/2), m.y+(m.shape.asInstanceOf[Rectangle].height/2)) + math.toRadians(s.theta)
-//    val lrr = math.hypot(m.x+(m.shape.asInstanceOf[Rectangle].width/2), m.y-(m.shape.asInstanceOf[Rectangle].height/2))
-//    val lrtheta = math.atan2(m.x+(m.shape.asInstanceOf[Rectangle].width/2), m.y-(m.shape.asInstanceOf[Rectangle].height/2)) + math.toRadians(s.theta)
-//    val urr = math.hypot(m.x+(m.shape.asInstanceOf[Rectangle].width/2), m.y+(m.shape.asInstanceOf[Rectangle].height/2))
-//    val urtheta = math.atan2(m.x+(m.shape.asInstanceOf[Rectangle].width/2), m.y+(m.shape.asInstanceOf[Rectangle].height/2)) + math.toRadians(s.theta)
     val llr = math.hypot(m.x, m.y)
-    val lltheta = math.atan2(m.x, m.y) + math.toRadians(s.theta)
+    val lltheta = math.atan2(m.y,m.x) + math.toRadians(s.theta)
     val ulr = math.hypot(m.x, m.y+(m.shape.asInstanceOf[Rectangle].height))
-    val ultheta = math.atan2(m.x, m.y+(m.shape.asInstanceOf[Rectangle].height)) + math.toRadians(s.theta)
+    val ultheta = math.atan2(m.y+(m.shape.asInstanceOf[Rectangle].height), m.x) + math.toRadians(s.theta)
     val lrr = math.hypot(m.x+(m.shape.asInstanceOf[Rectangle].width), m.y)
-    val lrtheta = math.atan2(m.x+(m.shape.asInstanceOf[Rectangle].width), m.y) + math.toRadians(s.theta)
+    val lrtheta = math.atan2(m.y, m.x+(m.shape.asInstanceOf[Rectangle].width)) + math.toRadians(s.theta)
     val urr = math.hypot(m.x+(m.shape.asInstanceOf[Rectangle].width), m.y+(m.shape.asInstanceOf[Rectangle].height))
-    val urtheta = math.atan2(m.x+(m.shape.asInstanceOf[Rectangle].width), m.y+(m.shape.asInstanceOf[Rectangle].height)) + math.toRadians(s.theta)
+    val urtheta = math.atan2(m.y+(m.shape.asInstanceOf[Rectangle].height), m.x+(m.shape.asInstanceOf[Rectangle].width)) + math.toRadians(s.theta)
     val xll = llr*math.cos(lltheta)
     val yll = llr*math.sin(lltheta)
     val xul = ulr*math.cos(ultheta)
@@ -82,9 +74,7 @@ class ExtendedBoundingBox extends BoundingBox with ExtendedShapeAlgebra[Location
     val maxY = List(yll, yul, ylr, yur).max
     val wid = (maxX-minX).abs
     val hei = (maxY-minY).abs
-    println(xll.toInt, yll.toInt, xul.toInt, yul.toInt, xlr.toInt, ylr.toInt, xur.toInt, yur.toInt, wid.toInt, hei.toInt)
-    println(minX.toInt, minY.toInt, wid.toInt, hei.toInt)
-    Location(minX.toInt, minY.toInt, new Rectangle(wid.toInt, hei.toInt))
+    new Location(minX.toInt, minY.toInt, new Rectangle(wid.toInt, hei.toInt))
   }
   def visitCircle(c:Circle) = visitEllipse(Ellipse(c.radius,c.radius))
   
