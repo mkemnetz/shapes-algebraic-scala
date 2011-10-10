@@ -7,8 +7,15 @@ class Draw {
     case Ellipse(hw, hh) => g.drawArc(-hw, -hh, 2 * hw, 2 * hh, 0, 360)
     case Rectangle(w, h) => g.drawRect(0, 0, w, h)
     case Location(x: Int, y: Int, shape: Shape) => {
+//      case Ellipse(hw, hh) => g.drawArc(-hw +x, -hh+y, 2 * hw, 2 * hh, 0, 360)
+//      case Rectangle(w, h) => g.drawRect(x, y, w, h)
+//      case Location(x: Int, y: Int, shape: Shape) => draw(g)(shape)
+//      case Group(shapes @ _*) => {
+//    	  shapes foreach(draw(g)(_))
+//      }
       g.translate(x, y)
       draw(g)(shape)
+      g.translate(-x, -y)
     }
     case Group(shapes @ _*) => {
       shapes foreach(draw(g)(_))

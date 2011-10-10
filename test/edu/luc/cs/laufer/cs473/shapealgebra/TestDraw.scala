@@ -29,4 +29,15 @@ class TestDraw extends FunSuite with BufferedImageEquality {
 	paintComplexGroup(g)
 	assertEquals(i, j)
   }
+  
+//  test("mattTest") {
+//	val s = mattGroupTest
+//	val i = new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB)
+//	Draw(i.createGraphics())(s)
+//	val j = new BufferedImage(500, 500, BufferedImage.TYPE_INT_RGB)
+//	val g = j.createGraphics()
+//	paintmattGroupTest(g)
+//	assertEquals(i, j)
+//  }
+  
 }
