@@ -7,22 +7,25 @@ class ExtendedDraw extends Draw {
 
   override def draw(g: Graphics2D)(s: Shape): Unit = s match {
     case Stroke(color: Color, shape: Shape) =>{
-      
+      g.setColor(color)
+      draw(g)(shape)
+      g.setColor(new Color(255, 255, 255))
     }
     case Fill(shape: Shape) => fill(g)(shape)
-    case Outline(shape: Shape)  => {
-      
-    }
-    case Polygon(points @_*) => {
-      
-    }
-    //case class Polygon(shapes: Shape*) extends Shape
-    //case Point(x: Int, y: Int) extends Shape
+//    case Outline(shape: Shape)  => {
+//      
+//    }
+//    case Polygon(points @_*) => {
+//      
+//    }
     case Rotate(theta: Int, shape: Shape) => {
-      
+    	g.rotate(math.toRadians(theta))
+    	draw(g)(shape)
+    	g.rotate(math.toRadians(-theta))
     }
     case Circle(radius: Int) => {
-      
+      println(g.getColor())
+    	draw(g)(Ellipse(radius,radius))
     }
     // TODO: cases for the additional shapes
 	// TODO: reduce Circle to Ellipse (avoid code duplication)
@@ -33,7 +36,7 @@ class ExtendedDraw extends Draw {
     case Ellipse(hw, hh) => g.fillArc(-hw, -hh, 2 * hw, 2 * hh, 0, 360)
     case Rectangle(w, h) => g.fillRect(0, 0, w, h)
 //    case Polygon(points @_*) => fillPolygon(Polygon p)
-    case Circle(c) => g.fillArc(-c/2, -c/2, 2 * c, 2*c, 0, 360)
+    case Circle(c) => g.fillArc(-c, -c, 2 * c, 2*c, 0, 360)
     case _ => draw(g)(s)
   }
 }

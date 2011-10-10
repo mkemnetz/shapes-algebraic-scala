@@ -9,12 +9,6 @@ object TestFixtures {
   val simpleRectangle = Rectangle(80, 120)
 
   val simpleLocation = Location(70, 30, Rectangle(80, 120))
-
-//  val mattGroupTest = Group(
-//      Location(50, 100,
-//          Rectangle(300, 60)
-//      ),
-//      Rectangle(300, 60))
      
   val simpleGroup = Group(
     Location(200, 100, Ellipse(50, 50)),
@@ -36,12 +30,6 @@ object TestFixtures {
       Rectangle(100, 200)
     )
   )
-//  def paintmattGroupTest(g: Graphics) = {
-//    g.translate(50, 100)
-//    g.drawRect(0, 0, 300, 60)
-//    g.translate(0, 0)
-//    g.drawRect(0, 0, 300, 60)
-//  }
   
   def paintComplexGroup(g: Graphics) = {
 	g.translate(50, 100)
