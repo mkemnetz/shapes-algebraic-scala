@@ -13,7 +13,6 @@ trait ExtendedShapeAlgebra[R] extends ShapeAlgebra[R] {
   def visitOutline(r: R, o: Outline):R
   def visitPolygon(rs: Seq[R], p: Polygon): R
   def visitPoint(p: Point): R
-//  def visitRotate(r: Int, ro: Rotate):R
   def visitRotate(r: R, ro: Rotate):R
   def visitCircle(c: Circle): R
 
@@ -27,7 +26,6 @@ trait ExtendedShapeAlgebra[R] extends ShapeAlgebra[R] {
     case fill: Fill => visitFill(fold(fill.shape),fill)
     case outline: Outline => visitOutline(fold(outline.shape),outline)
     case polygon: Polygon => visitPolygon(polygon.points.map(fold(_)), polygon)
-//    case rotate: Rotate => visitRotate(rotate.theta, rotate)
     case rotate: Rotate => visitRotate(fold(rotate.shape), rotate)
     case circle: Circle => visitCircle(circle)
     

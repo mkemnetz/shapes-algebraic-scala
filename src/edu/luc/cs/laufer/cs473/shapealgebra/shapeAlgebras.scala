@@ -30,7 +30,6 @@ class BoundingBox extends ShapeAlgebra[Location] {
       def highPts(w: Location): Int = {
         return w.y + w.shape.asInstanceOf[Rectangle].height
       }
-//      // val minX = q map (_.x) min
       val minX = q.reduceLeft((s1,s2) =>  if (xVal(s2) < xVal(s1)) s2 else s1).x
       val minY = q.reduceLeft((s1,s2) =>  if (yVal(s2) < yVal(s1)) s2 else s1).y
       
